@@ -17,6 +17,7 @@
         WindowStyle="None"
         Icon="Images/prepper.ico"
         Loaded="Window_Loaded"
+        SourceInitialized="Window_SourceInitialized"
         >
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
@@ -42,7 +43,7 @@
                 <RowDefinition Height="100*" />
                 <RowDefinition Height="65"/>
             </Grid.RowDefinitions>
-            <Grid Name="ControlBox" Grid.Row="0" Grid.ColumnSpan="4" MouseLeftButtonDown="ControlBox_MouseLeftButtonDown" Background="#1B2626">
+            <Grid Name="ControlBox" Grid.Row="0" Grid.ColumnSpan="4" MouseLeftButtonDown="rctHeader_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="rctHeader_PreviewMouseLeftButtonUp" PreviewMouseMove="rctHeader_PreviewMouseMove" Background="#1B2626">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                 </Grid.RowDefinitions>
@@ -52,14 +53,14 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Name="WindowTitle" Grid.Column="0" FontFamily="MS San Serif" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFA5D6B7" Margin="10,0,0,0">Prepper</TextBlock>
                 <StackPanel Margin="0,0,5,0" x:Name="WindowControlPanel" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Border Margin="0,0,2,0" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Yellow" Opacity="0.65" >
-                        <Button Name="MinimizeButton" Click="MinimizeButton_Click" FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="18" Height="18" BorderThickness="0" Foreground="LightSlateGray"/>
+                    <Border Margin="0,0,2,0" Panel.ZIndex="1000" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Yellow" Opacity="0.65" >
+                        <Button Margin="0,0,-1,0" Name="MinimizeButton" Click="MinimizeButton_Click" FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="15" Height="15" BorderThickness="0" Foreground="LightSlateGray"/>
                     </Border>
-                    <Border Margin="2,0,2,0" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Green" Opacity="0.65" >
-                        <Button Name="MaximizeButton" Click="MaximizeButton_Click"  FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="18" Height="18" BorderThickness="0" Foreground="LightSlateGray"/>
+                    <Border Margin="2,0,2,0" Panel.ZIndex="1000" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Green" Opacity="0.65" >
+                        <Button Name="MaximizeButton" Click="MaximizeButton_Click" Margin="0,0,-1,0" FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="15" Height="15" BorderThickness="0" Foreground="LightSlateGray"/>
                     </Border>
-                    <Border Margin="2,0,0,0" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Red" Opacity="0.65" >
-                        <Button Name="CloseButton" Click="CloseButton_Click" FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="18" Height="18" BorderThickness="0" Foreground="LightSlateGray" />
+                    <Border Margin="2,0,0,0" Panel.ZIndex="1000" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Red" Opacity="0.65" >
+                        <Button Name="CloseButton" Click="CloseButton_Click" Margin="0,0,-1,0" FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="15" Height="15" BorderThickness="0" Foreground="LightSlateGray" />
                     </Border>
                 </StackPanel>
             </Grid>
