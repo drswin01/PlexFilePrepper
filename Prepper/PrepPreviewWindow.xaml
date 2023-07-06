@@ -1,0 +1,63 @@
+﻿<Window x:Class="Prepper.PrepPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Prepper"
+        mc:Ignorable="d"
+        Title="Prep Preview" 
+        Height="450" 
+        Width="800" 
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        Background="#293A36"
+        WindowStartupLocation="CenterOwner"
+        Loaded="Window_Loaded">
+    <Border BorderBrush="#1B2626" CornerRadius="10">
+        <Grid Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="12*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Grid Name="ControlBox" Grid.Row="0" Grid.ColumnSpan="4" MouseLeftButtonDown="ControlBox_MouseLeftButtonDown" Background="#1B2626">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Name="WindowTitle" Grid.Column="0" FontFamily="MS San Serif" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFA5D6B7" Margin="10,0,0,0">Prep Preview</TextBlock>
+                <StackPanel Margin="0,0,5,0" x:Name="WindowControlPanel" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Border Margin="2,0,0,0" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Red" Opacity="0.65" >
+                        <Button Name="CloseButton" Click="CloseButton_Click" FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="18" Height="18" BorderThickness="0" Foreground="LightSlateGray" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <TextBlock Name="PrepPreviewOverviewTextBlock" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,5,2" Background="Transparent" Foreground="#707775" Grid.Row="1"/>
+            <ListBox Style="{DynamicResource ListBoxStyle}" Name="PrepDetailList" Grid.Row="2" Margin="5,0,5,0" Background="Transparent"/>
+            <DockPanel Name="UserOptionsPanel" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
+                <Border DockPanel.Dock="Right" Width="125" Height="45" BorderThickness="0" Margin="0,0,5,0" VerticalAlignment="Center" Background="#6CD591" CornerRadius="3">
+                    <Button Name="ContinuePrepButton" ToolTip="Continue" FontSize="16" FontWeight="Bold" Width="125" Height="45" Foreground="#293A36" Background="Transparent"  HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ContinuePrepButton_Click">
+                        <Image>
+                            <Image.Source>
+                                <BitmapImage DecodePixelWidth="64" DecodePixelHeight="64" UriSource="Images/tick.png" />
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </Border>
+                <Border DockPanel.Dock="Left" HorizontalAlignment="Left" Width="125" Height="45" BorderThickness="0" Margin="5,0,0,0" VerticalAlignment="Center" Background="#923232" CornerRadius="3">
+                    <Button Name="AbortPrepButton" ToolTip="Abort" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Width="125" Height="45" Background="Transparent" Foreground="#FFFFFF" DockPanel.Dock="Left" Click="AbortPrepButton_Click">
+                        <Image Width="28" Height="28">
+                            <Image.Source>
+                                <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/close-white.png" />
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </Border>
+            </DockPanel>
+        </Grid>
+    </Border>
+</Window>

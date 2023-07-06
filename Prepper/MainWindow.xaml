@@ -1,0 +1,246 @@
+﻿<Window x:Class="Prepper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Prepper"
+        xmlns:controls="clr-namespace:Prepper.Controls" xmlns:shell="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+        mc:Ignorable="d" 
+        Name="PrepperMainWindow"
+        Title="Prepper"
+        Height="600" Width="1000"
+        MinHeight="600" MinWidth="1000"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="True"
+        Background="#293A36"        
+        WindowStyle="None"
+        Icon="Images/prepper.ico"
+        Loaded="Window_Loaded"
+        >
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard Duration="00:00:00:50" Storyboard.TargetProperty="Opacity">
+                        <DoubleAnimation From="0" To="1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+    <Border BorderBrush="#1B2626" CornerRadius="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="100*" />
+                <RowDefinition Height="65"/>
+            </Grid.RowDefinitions>
+            <Grid Name="ControlBox" Grid.Row="0" Grid.ColumnSpan="4" MouseLeftButtonDown="ControlBox_MouseLeftButtonDown" Background="#1B2626">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="65"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Name="WindowTitle" Grid.Column="0" FontFamily="MS San Serif" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFA5D6B7" Margin="10,0,0,0">Prepper</TextBlock>
+                <StackPanel Margin="0,0,5,0" x:Name="WindowControlPanel" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Border Margin="0,0,2,0" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Yellow" Opacity="0.65" >
+                        <Button Name="MinimizeButton" Click="MinimizeButton_Click" FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="18" Height="18" BorderThickness="0" Foreground="LightSlateGray"/>
+                    </Border>
+                    <Border Margin="2,0,2,0" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Green" Opacity="0.65" >
+                        <Button Name="MaximizeButton" Click="MaximizeButton_Click"  FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="18" Height="18" BorderThickness="0" Foreground="LightSlateGray"/>
+                    </Border>
+                    <Border Margin="2,0,0,0" BorderThickness="1" Width="15" Height="15" BorderBrush="Transparent" CornerRadius="9" Background="Red" Opacity="0.65" >
+                        <Button Name="CloseButton" Click="CloseButton_Click" FontFamily="MS Sans Serif" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" Width="18" Height="18" BorderThickness="0" Foreground="LightSlateGray" />
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid Name="FileSourceGrid" Grid.Column="0" Grid.Row="1" Margin="5,5,5,63" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions >
+                <Grid Grid.Row="0" x:Name="FileSelectionGrid" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="32"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Width="Auto" Height="32" Margin="0,0,-5,0" HorizontalAlignment="Stretch" Background="#1B2626" CornerRadius="3">
+                        <TextBox Width="Auto" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Name="SelectedDirectoryTextBox" BorderThickness="0" Foreground="#707775" Text="{Binding SelectedDirectory}" Height="32" Padding="5" DockPanel.Dock="Top" KeyDown="SelectedDirectoryTextBox_KeyDown" LostFocus="SelectedDirectoryTextBox_LostFocus" />
+                    </Border>
+                    <TextBlock Name="SelectedDirectoryPrompt" IsHitTestVisible="False" Panel.ZIndex="1000" Grid.Column="0" Margin="5,0,0,0" Foreground="#FFFFFF" Opacity="0.1" FontFamily="MS Sans Seris" HorizontalAlignment="Left" VerticalAlignment="Center">Files To Prep Location</TextBlock>
+                    <Border Grid.Column="1" Width="32" Height="32" Margin="-2,0,0,0" Background="#1B2626" CornerRadius="3">
+                        <Border.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <Trigger Property="Border.IsMouseOver" Value="True">
+                                        <Setter Property="Border.Background" Value="#1B2626" />
+                                        <Setter Property="Border.BorderThickness" Value="0" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Button Width="32" Height="32" Name="BrowseButton" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" VerticalContentAlignment="Center" FontFamily="MS Sans Serif" Foreground="#FF293A36" Background="Transparent" BorderThickness="1" BorderBrush="Transparent" Click="BrowseButtonClick" Content="..." >
+                            <Button.Resources>
+                                <Style x:Key="BrowseButtonStyle">
+                                    <Style.Triggers>
+                                        <Trigger Property="Button.IsMouseOver" Value="True">
+                                            <Setter Property="Border.BorderThickness" Value="0" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Border>
+                </Grid>
+                <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="45" Background="#6CD591" Margin="5,40,0,5" CornerRadius="3">
+                    <Button Width="45" Name="LoadFilesButton" ToolTip="Load files from selected directory into Prep" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" FontSize="14" FontWeight="Bold" VerticalContentAlignment="Center" FontFamily="MS Sans Serif" Foreground="#293A36" Background="Transparent" BorderThickness="0" Click="LoadFilesButton_Click">
+                        <Image>
+                            <Image.Source>
+                                <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/right-down.png" />
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                </Border>
+            </Grid>
+            <Grid Name="FileListGrid" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*" />
+                    <RowDefinition Height="42"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer Name="FileListScroller" Style="{StaticResource ScrollViewerStyle}" Width="Auto" Height="Auto" VerticalContentAlignment="Stretch" Margin="5" Background="#2F4D4F" Foreground="#62BF87" Grid.Row="0" ScrollChanged="FileListOrPrepListScroller_ScrollChanged">
+                    <ListView Style="{DynamicResource ListViewStyle}" Name="FileList" Width="Auto" SelectionMode="Single" FontFamily="MS Sans Serif" Foreground="#62BF87" Background="#1B2626" ItemsSource="{Binding FilesToPrepList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Converter={local:FileName}}" Foreground="#62BF87" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+                <DockPanel Grid.Row="1" VerticalAlignment="Stretch" Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
+                    <Border DockPanel.Dock="Left" BorderThickness="0" Width="32" Height="32" Background="#365658" VerticalAlignment="Center" CornerRadius="3" Margin="5,0,5,0">
+                        <Button Name="FileListMoveUpButton" Width="32" Height="32" Click="FileListMoveUpButton_Click" BorderThickness="0" Background="Transparent" VerticalContentAlignment="Center">
+                            <Image Width="28" Height="28">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/uparrow.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                    <Border DockPanel.Dock="Left" BorderThickness="0" Width="32" Height="32" Background="#365658" VerticalAlignment="Center" CornerRadius="3" Margin="5,0,5,0">
+                        <Button BorderThickness="0" Name="FileListMoveDownButton" Background="Transparent" Click="FileListMoveDownButton_Click" Width="32" Height="32" VerticalContentAlignment="Center">
+                            <Image Width="28" Height="28">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" Rotation="Rotate180" UriSource="Images/uparrow.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                    <Border DockPanel.Dock="Left" BorderThickness="0" Width="45" Height="32" Background="#365658" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="3" Margin="5,0,5,0">
+                        <Button BorderThickness="0" Name="ReorderListButton" ToolTip="Attempt to auto-reorder based on current episode data loaded prep" Background="Transparent" Click="ReorderListButton_Click" Width="45" Height="32" VerticalContentAlignment="Center">
+                            <Image Width="28" Height="28">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/reorder.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                    <Border DockPanel.Dock="Right" BorderThickness="0" Width="32" Height="32" Background="#365658" VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="3" Margin="5,0,5,0">
+                        <Button BorderThickness="0" Name="FileListRemoveAllButton" Background="Transparent" Click="FileListRemoveAllButton_Click" Width="32" Height="32" VerticalContentAlignment="Center">
+                            <Image>
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/broom.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                    <Border DockPanel.Dock="Right" BorderThickness="0" Width="32" Height="32" Background="#365658" VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="3" Margin="5,0,5,0">
+                        <Button BorderThickness="0" Name="FileListRemoveButton" Background="Transparent" Click="FileListRemoveButton_Click" Width="32" Height="32" VerticalContentAlignment="Center">
+                            <Image Width="28" Height="28">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/delete.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                </DockPanel>
+            </Grid>
+            <Grid Name="PrepListGrid" Grid.Column="2" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*" />
+                    <RowDefinition Height="42"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer Name="PrepListScroller" Style="{StaticResource ScrollViewerStyle}" Margin="5" Background="#2F4D4F" Grid.Column="3" Width="Auto" Height="Auto" VerticalContentAlignment="Stretch">
+                    <ListView Name="PrepList" Width="Auto" Foreground="#62BF87" FontFamily="MS Sans Serif" Background="#1B2626" SelectionMode="Single" ItemsSource="{Binding CurrentPrepList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding}" Foreground="#62BF87" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+                <DockPanel Grid.Row="1" VerticalAlignment="Stretch" Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
+                    <Border DockPanel.Dock="Left" BorderThickness="0" Width="32" Height="32" Background="#365658" VerticalAlignment="Center" CornerRadius="3" Margin="5,0,5,0">
+                        <Button Name="PrepListMoveUpButton" Click="PrepListMoveUpButton_Click" BorderThickness="0" Background="Transparent" Width="32" Height="32" VerticalContentAlignment="Center">
+                            <Image Width="28" Height="28">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/uparrow.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                    <Border DockPanel.Dock="Left" BorderThickness="0" Width="32" Height="32" Background="#365658" VerticalAlignment="Center" HorizontalAlignment="Left" CornerRadius="3" Margin="5,0,5,0">
+                        <Button Name="PrepListMoveDownButton" Click="PrepListMoveDownButton_Click" BorderThickness="0" Background="Transparent" Width="32" Height="32" VerticalContentAlignment="Center">
+                            <Image Width="28" Height="28">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" Rotation="Rotate180" UriSource="Images/uparrow.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                    <Border DockPanel.Dock="Right" BorderThickness="0" Width="32" Height="32" Background="#365658" VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="3" Margin="5,0,5,0">
+                        <Button BorderThickness="0" Name="PrepListRemoveAllButton" Background="Transparent" Click="PrepListRemoveAllButton_Click" Width="32" Height="32" VerticalContentAlignment="Center">
+                            <Image>
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/broom.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                    <Border DockPanel.Dock="Right" BorderThickness="0" Width="32" Height="32" Background="#365658" VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="3" Margin="5,0,5,0">
+                        <Button BorderThickness="0" Name="PrepListRemoveButton" Background="Transparent" Click="PrepListRemoveButton_Click" Width="32" Height="32" VerticalContentAlignment="Center">
+                            <Image Width="28" Height="28">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="32" DecodePixelHeight="32" UriSource="Images/delete.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </Border>
+                </DockPanel>
+            </Grid>
+            <StackPanel Margin="0,5,0,0" x:Name="CreditPanel"  Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Height="Auto">
+                <TextBlock Foreground="LightSlateGray" Opacity="0.35" FontSize="8" FontFamily="MS Sans Seris">Powered by</TextBlock>
+                <Image Margin="5,0,5,0" Width="59" Height="33" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Image.Source>
+                        <BitmapImage DecodePixelWidth="59" DecodePixelHeight="33" UriSource="Images\tvdblogo.png" />
+                    </Image.Source>
+                </Image>
+            </StackPanel>
+            <DockPanel Name="ReferenceSelectionPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Column="3" Grid.Row="1" Margin="0,20,0,42" />
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="4" VerticalAlignment="Center" Orientation="Vertical">
+                <Separator Background="#1B2626" Height="2" Margin="5,2,5,5" RenderTransformOrigin="0.5,0.5" />
+                <Border Width="450" Height="45" BorderThickness="0" VerticalAlignment="Center" Background="#6CD591" CornerRadius="3">
+                    <Button Name="PrepButton" HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="45" FontSize="24" VerticalContentAlignment="Center" FontFamily="MS Sans Serif" FontWeight="Bold" Foreground="#293A36" Background="Transparent" BorderThickness="0" Click="PrepButton_Click">PREP</Button>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

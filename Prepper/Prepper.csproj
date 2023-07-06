@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\broom.png" />
+    <None Remove="Images\close-white.png" />
+    <None Remove="Images\close.png" />
+    <None Remove="Images\curve-arrow-pointing-left.png" />
+    <None Remove="Images\delete.png" />
+    <None Remove="Images\downloads.png" />
+    <None Remove="Images\eye.png" />
+    <None Remove="Images\key.png" />
+    <None Remove="Images\left-down.png" />
+    <None Remove="Images\padlock.png" />
+    <None Remove="Images\prepper.ico" />
+    <None Remove="Images\reorder.png" />
+    <None Remove="Images\right-down.png" />
+    <None Remove="Images\search-file.png" />
+    <None Remove="Images\search.png" />
+    <None Remove="Images\select.png" />
+    <None Remove="Images\tick.png" />
+    <None Remove="Images\tvdblogo.png" />
+    <None Remove="Images\tvdblogo.svg" />
+    <None Remove="Images\uparrow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\broom.png" />
+    <Resource Include="Images\close-white.png" />
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\curve-arrow-pointing-left.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\downloads.png" />
+    <Resource Include="Images\eye.png" />
+    <Resource Include="Images\key.png" />
+    <Resource Include="Images\left-down.png" />
+    <Resource Include="Images\padlock.png" />
+    <Resource Include="Images\prepper.ico" />
+    <Resource Include="Images\reorder.png" />
+    <Resource Include="Images\right-down.png" />
+    <Resource Include="Images\search-file.png" />
+    <Resource Include="Images\search.png" />
+    <Resource Include="Images\select.png" />
+    <Resource Include="Images\tick.png" />
+    <Resource Include="Images\tvdblogo.png" />
+    <Resource Include="Images\uparrow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FuzzySharp" Version="2.0.2" />
+    <PackageReference Include="Ookii.Dialogs.WinForms" Version="4.0.0" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="TvDbSharper" Version="4.0.10" />
+  </ItemGroup>
+
+</Project>
